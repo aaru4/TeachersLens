@@ -188,9 +188,6 @@ class CameraApp(App):
             if self.ai_model is None and self.tokenizer is not None:
                 self.ai_model = self.load_ai_model()
 
-            # Now, you can use the text_results and self.ai_model for AI detection
-            # For example, you can make predictions on the captured text using the AI model
-            # Replace this logic with your actual AI detection approach
             self.perform_ai_detection(text_results)
 
     def on_stop(self):
