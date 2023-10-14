@@ -1,6 +1,5 @@
 import cv2
 import pytesseract
-
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -12,10 +11,10 @@ from keras import backend as K
 # Set Tesseract OCR executable path
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\aarus\coding\tesseract.exe'
 
-# Clear the Keras session to start fresh
+# Clear the Keras session
 K.clear_session()
 
-# Define the perform_ocr function for text extraction
+# Define a function to perform OCR (text extraction)
 def perform_ocr(image_path):
     # Read the image using OpenCV
     image = cv2.imread(image_path)
@@ -33,7 +32,7 @@ print(text_results)
 # Load the dataset using pandas
 data = pd.read_csv(r'C:\Users\aarus\coding\aiDetectApp\GPT-wiki-intro.csv')
 
-# Extract the relevant columns
+# Extract relevant columns
 wiki_intro_data = data['wiki_intro'].values
 generated_intro_data = data['generated_intro'].values
 
@@ -68,9 +67,7 @@ model = models.Sequential([
 ])
 
 # Compile the model
-model.compile(optimizer='adam',
-              loss='binary_crossentropy',
-              metrics=['accuracy'])
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
 # Print the model summary
 model.summary()
