@@ -1,5 +1,6 @@
 import cv2
 import pytesseract
+
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -11,10 +12,10 @@ from keras import backend as K
 # Set Tesseract OCR executable path
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\aarus\coding\tesseract.exe'
 
-# Clear the Keras session
+# Clear the Keras session to start fresh
 K.clear_session()
 
-# Define a function to perform OCR (text extraction)
+# Define the perform_ocr function for text extraction
 def perform_ocr(image_path):
     # Read the image using OpenCV
     image = cv2.imread(image_path)
@@ -24,15 +25,11 @@ def perform_ocr(image_path):
 
     return text
 
-# Example usage of the perform_ocr function
-image_path = "path/to/your/image.png"
-text_results = perform_ocr(image_path)
-print(text_results)
 
 # Load the dataset using pandas
 data = pd.read_csv(r'C:\Users\aarus\coding\aiDetectApp\GPT-wiki-intro.csv')
 
-# Extract relevant columns
+# Extract the relevant columns
 wiki_intro_data = data['wiki_intro'].values
 generated_intro_data = data['generated_intro'].values
 
@@ -67,17 +64,15 @@ model = models.Sequential([
 ])
 
 # Compile the model
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.compile(optimizer='adam',
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
 
 # Print the model summary
 model.summary()
 
 # Train the model
 model.fit(inputs, labels, epochs=5, batch_size=128, validation_split=0.1)
-
-# Now, you can use the text_results for AI detection
-# For example, you can use a simple keyword check to determine if the text contains AI-generated content
-# Replace this logic with your actual AI detection approach
 
 if "AI-generated content" in text_results:
     print("AI-generated content detected.")
